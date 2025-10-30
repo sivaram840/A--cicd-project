@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # Service 1: The Spring Boot Backend
+  backend:
+    build:
+      # Build using the current directory as context
+      context: .
+      dockerfile: backend.Dockerfile
+    # Name the resulting image
+    image: backend-image
+    ports:
+      # Map your computer's port 8080 to the container's port 8080
+      - "8080:8080" 
+    environment:
+      # Use host.docker.internal to connect from the container to MySQL running on your Windows machine
+      - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/expense_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=Mahesh@123 # <-- IMPORTANT: Make sure this is your correct MySQL password
+    # Wait for the frontend to be "ready" before starting (optional, but good practice)
+    depends_on:
+      - frontend
+
+  # Service 2: The React Frontend
+  frontend:
+    build:
+      # Build using the current directory as context
+      context: .
+      dockerfile: frontend.Dockerfile
+    # Name the resulting image
+    image: frontend-image
+    ports:
+      # Map your computer's port 3000 to the container's (nginx) port 80
+      - "3000:80"
