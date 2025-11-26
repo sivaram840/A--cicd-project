@@ -3,7 +3,7 @@ spring:
     # This is the line we fixed. Added "&allowPublicKeyRetrieval=true"
     url: jdbc:mysql://localhost:3306/expense_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
-    password: Mahesh@123
+    password: Sivasiva@25
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -14,7 +14,6 @@ spring:
     locations: classpath:db/migration
 server:
   port: 8080
-
 jwt:
   secret: replace-me-with-a-long-random-secret
   expiration-ms: 3600000   # 1 hour in milliseconds
