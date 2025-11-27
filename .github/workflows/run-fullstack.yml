@@ -1,7 +1,6 @@
 name: Run Fullstack App (Docker Compose)
 
 on:
-  # Run manually from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -12,26 +11,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 🔥 Install Docker Compose (required on GitHub runners)
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.23.3/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
       - name: Show project structure
         run: ls -R
 
-      # Uses your existing docker-compose.yml exactly as it is
-      - name: Build & start containers
+      # 🔥 Start backend + frontend using your SAME docker-compose file
+      - name: Start Docker Containers
         run: |
           docker-compose down || true
           docker-compose up --build -d
-          echo "Running containers:"
           docker ps
 
-      # Give containers some time to start
-      - name: Wait for services to start
-        run: sleep 40
+      # Let services boot up
+      - name: Wait for startup
+        run: sleep 35
 
-      # Optional: collect logs for demo/debug
-      - name: Show docker-compose logs
+      - name: Show logs
         run: docker-compose logs --tail=100
 
-      # Always stop containers at the end
       - name: Stop containers
         if: always()
         run: docker-compose down
