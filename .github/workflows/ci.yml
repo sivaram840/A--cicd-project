@@ -25,9 +25,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # pom.xml is inside: expense-splitter-splitwise-dupe-master/
+      # Backend path IS correct now
       - name: Build backend using Maven
-        working-directory: ./expense-splitter-splitwise-dupe-master
+        working-directory: ./expense-splitter-backend
         run: mvn clean package -DskipTests
 
 
@@ -47,11 +47,11 @@ jobs:
         with:
           node-version: 20
 
-      # frontend is inside: expense-splitter-splitwise-dupe-master/frontend
+      # Frontend folder path is correct now
       - name: Install dependencies
-        working-directory: ./expense-splitter-splitwise-dupe-master/frontend
+        working-directory: ./frontend
         run: npm install
 
       - name: Build frontend
-        working-directory: ./expense-splitter-splitwise-dupe-master/frontend
+        working-directory: ./frontend
         run: npm run build
