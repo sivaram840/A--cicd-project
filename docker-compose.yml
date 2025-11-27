@@ -16,7 +16,7 @@ services:
       # Use host.docker.internal to connect from the container to MySQL running on your Windows machine
       - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/expense_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=Mahesh@123 # <-- IMPORTANT: Make sure this is your correct MySQL password
+      - SPRING_DATASOURCE_PASSWORD=Sivasiva@25 # <-- IMPORTANT: Make sure this is your correct MySQL password
     # Wait for the frontend to be "ready" before starting (optional, but good practice)
     depends_on:
       - frontend
