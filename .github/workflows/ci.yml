@@ -9,7 +9,7 @@ on:
 jobs:
 
   # ===========================
-  # BACKEND - SPRING BOOT (ROOT)
+  # BACKEND - SPRING BOOT
   # ===========================
   backend-build:
     name: Backend - Spring Boot Build
@@ -25,8 +25,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # Backend code is at ROOT (pom.xml is here)
+      # pom.xml is inside: expense-splitter-splitwise-dupe-master/
       - name: Build backend using Maven
+        working-directory: ./expense-splitter-splitwise-dupe-master
         run: mvn clean package -DskipTests
 
 
@@ -46,10 +47,11 @@ jobs:
         with:
           node-version: 20
 
+      # frontend is inside: expense-splitter-splitwise-dupe-master/frontend
       - name: Install dependencies
-        working-directory: ./frontend
+        working-directory: ./expense-splitter-splitwise-dupe-master/frontend
         run: npm install
 
       - name: Build frontend
-        working-directory: ./frontend
+        working-directory: ./expense-splitter-splitwise-dupe-master/frontend
         run: npm run build
