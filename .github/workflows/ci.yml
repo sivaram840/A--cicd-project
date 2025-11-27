@@ -1,4 +1,4 @@
-name: CI - Build Project
+name: CI - Build Backend & Frontend
 
 on:
   push:
@@ -7,12 +7,16 @@ on:
     branches: [ "main" ]
 
 jobs:
-  backend:
-    name: Backend - Spring Boot
+
+  # ===========================
+  # BACKEND - SPRING BOOT (ROOT)
+  # ===========================
+  backend-build:
+    name: Backend - Spring Boot Build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout source code
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -21,25 +25,29 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build Spring Boot
-        working-directory: ./backend   # ⬅️ change to your backend folder name
+      # Backend code is at ROOT (pom.xml is here)
+      - name: Build backend using Maven
         run: mvn clean package -DskipTests
 
-  frontend:
-    name: Frontend - Vite React
+
+  # ===========================
+  # FRONTEND - VITE REACT
+  # ===========================
+  frontend-build:
+    name: Frontend - React (Vite) Build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout source code
         uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
       - name: Install dependencies
-        working-directory: ./frontend   # ⬅️ change to your frontend folder name
+        working-directory: ./frontend
         run: npm install
 
       - name: Build frontend
